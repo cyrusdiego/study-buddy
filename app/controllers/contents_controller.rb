@@ -5,6 +5,20 @@ class ContentsController < ApplicationController
   # GET /contents.json
   def index
     @contents = Content.all
+
+    extractPDF
+  end
+
+  def extractPDF
+    filename = "#{Rails.root}/app/assets/files/slides.01.pdf"
+    pageContent = []
+    PDF::Reader.open(filename) do |reader|
+      reader.pages.each do |page|
+        pageContent.push(page.text)
+      end
+    end
+
+    puts pageContent[0]
   end
 
   # GET /contents/1
