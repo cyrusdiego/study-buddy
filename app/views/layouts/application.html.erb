@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>StudyBuddy</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>StudyBuddy</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-  <p id="notice"><%= notice %></p>
-  <p id="alert"><%= alert %></p>
+<body>
+<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<main class="container mx-auto mt-28 px-5 flex">
   <%= yield %>
-  </body>
+</main>
+</body>
 </html>
