@@ -39,5 +39,5 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore dotenv
-.env
+# Ignore secrets
+secrets.yml
