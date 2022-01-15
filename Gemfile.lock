@@ -121,6 +121,7 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.7.1)
     minitest (5.11.3)
     minitest-reporters (1.3.8)
       ansi
@@ -130,6 +131,9 @@ GEM
     msgpack (1.4.2)
     nenv (0.3.0)
     nio4r (2.5.8)
+    nokogiri (1.13.1)
+      mini_portile2 (~> 2.7.0)
+      racc (~> 1.4)
     nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -216,6 +220,10 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
+    tailwindcss-rails (2.0.4)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.0.4-x86_64-linux)
+      railties (>= 6.0.0)
     thor (1.2.1)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -247,6 +255,7 @@ GEM
     zeitwerk (2.5.3)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -269,6 +278,7 @@ DEPENDENCIES
   spring (= 2.1.1)
   spring-watcher-listen (= 2.0.1)
   sqlite3 (= 1.4.2)
+  tailwindcss-rails (~> 2.0)
   turbolinks (= 5.2.1)
   web-console (= 4.1.0)
   webdrivers (= 4.6.0)
