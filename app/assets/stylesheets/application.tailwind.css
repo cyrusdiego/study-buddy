@@ -14,11 +14,7 @@
 
 @layer components {
     .card {
-        background-color: theme('colors.white');
-        border-radius: theme('borderRadius.lg');
-        padding: theme('spacing.6');
-        box-shadow: theme('boxShadow.xl');
-        @apply my-4
+        @apply bg-neutral-50 rounded-lg p-6 drop-shadow-xl my-4
     }
 
     .heading-1 {
@@ -27,5 +23,9 @@
 
     .heading-2 {
         @apply text-2xl font-medium mb-2
+    }
+
+    .primary-button {
+        @apply bg-primary-500 rounded-lg text-white p-2 drop-shadow-md
     }
 }
