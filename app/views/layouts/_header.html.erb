@@ -1,6 +1,8 @@
-<header>
-  <span>LOGO</span>
-  <span>StudyBuddy</span>
+<header class="w-full bg-neutral-50 drop-shadow-md p-4 flex">
+  <div class="grow">
+    <span>LOGO</span>
+    <span>StudyBuddy</span>
+  </div>
   <% if user_signed_in? %>
     <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
   <% end %>
