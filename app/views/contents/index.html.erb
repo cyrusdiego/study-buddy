@@ -1,25 +1,15 @@
-<h1>Contents</h1>
+<div class="flex">
+  <h1 class="heading-1 grow">Contents</h1>
+  <%= link_to 'New Content', new_content_path %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @contents.each do |content| %>
-      <tr>
-        <td><%= content.title %></td>
-        <td><%= link_to 'Show', content %></td>
-        <td><%= link_to 'Edit', edit_content_path(content) %></td>
-        <td><%= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div>
+  <% @contents.each do |content| %>
+    <%= link_to content do %>
+      <div class="card">
+        <h2 class="heading-2"><%= content.title %></h2>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+</div>
 
-<br>
-
-<%= link_to 'New Content', new_content_path %>
