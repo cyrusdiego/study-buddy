@@ -12,10 +12,12 @@
 </head>
 
 <body>
-<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <main class="container mx-auto mt-28 px-5 flex">
+  <%= render "layouts/header" %>
+  <p id="notice"><%= notice %></p>
+  <p id="alert"><%= alert %></p>
   <%= yield %>
 </main>
 </body>
