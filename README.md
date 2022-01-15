@@ -23,9 +23,9 @@
   bin/rails db:migrate
   ```
 
-* Build tailwind for production
+* Run tailwind watcher
   ```sh
-  bin/rails tailwindcss:build
+  bin/rails tailwindcss:watch
   ```
 
 * Run server
