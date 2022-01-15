@@ -26,6 +26,6 @@
     }
 
     .primary-button {
-        @apply bg-primary-500 rounded-lg text-white p-2 drop-shadow-md
+        @apply bg-primary-500 rounded-lg text-white p-2 drop-shadow-md hover:bg-primary-400 transition-colors
     }
 }
