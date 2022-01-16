@@ -13,7 +13,7 @@ TODOs
 - answer gen
   - open ai related
     - create answer gen prompt
-    - tweak params
+    - tweak params (try question engine instead?)
 =end
 
 module OpenAiApiParameters 
@@ -93,8 +93,8 @@ Questions:
     "factors. The reasons for the collapse are major subjects of the historiography of the ancient world and they "\
     "inform much modern discourse on state failure."
 
-  # Maximum is 2048 but due to approximated token length of 4 rounding down to 2000
-  @@max_tokens = 2000
+  # Maximum is 2048 but due to approximated token length of 4 rounding down to be safe
+  @@max_tokens = 1900
 
   @@min_completion_tokens = 300
 
@@ -127,7 +127,7 @@ module OpenAiApi
   module_function :fetch_question_set
 
   def fetch_answer content, question
-    content.gsub! "\n", ""
+    content.gsub! "\n", " "
     answer_tokens = self.calculate_answer_tokens content, question
     self.parse_response :answer, OpenAiClient.instance.client.answers(parameters: {
       model: "curie",
