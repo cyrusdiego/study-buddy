@@ -1,8 +1,10 @@
 <header class="w-full bg-neutral-50 drop-shadow-md p-4 flex">
-  <div class="grow">
-    <span>LOGO</span>
-    <span>StudyBuddy</span>
-  </div>
+  <%= link_to '/' do %>
+    <div class="grow">
+      <img alt="StudyBuddy logo" src="img/logo.svg" class="inline-block max-h-8 mr-2"/>
+      <span>StudyBuddy</span>
+    </div>
+  <% end %>
   <% if user_signed_in? %>
     <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
   <% end %>
