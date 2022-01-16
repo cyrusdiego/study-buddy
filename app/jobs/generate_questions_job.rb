@@ -1,48 +1,54 @@
+require "openai_api"
+
 class GenerateQuestionsJob < ApplicationJob
   queue_as :default
 
-  # method is :one_per_page or :one_randomly
-  def perform(content_id, method)
+  # method is :per_page or :random_page
+  def perform content_id, method
     # Load up the file with the associated content model
-    content = Content.find(content_id)
+    content = Content.find content_id
     content.file.open do |f|
       f.binmode
-      r = PDF::Reader.new(f)
-      puts r.page_count
+      r = PDF::Reader.new f
 
       case method
-      when :one_per_page
+      when :per_page
         r.pages.each do |page|
-          # TODO: Call OpenAI with this pages text
-          puts page.text
-          question_text = 'todo dynamically generate this'
-          begin
-            create_question(content_id, question_text)
-          rescue
-            puts 'Failed to create a question'
-          end
+          self.create_questions content_id, page.text
         end
 
-      when :one_randomly
+      when :random_page
         page = r.pages[rand(0..(r.page_count - 1))]
-        # TODO: Call OpenAI with this pages text
-        puts page.text
-        question_text = 'todo dynamically generate this'
-        begin
-          create_question(content_id, question_text)
-        rescue
-          puts 'Failed to create a question'
-        end
+        self.create_questions content_id, page.text
+
       else
-        raise 'Invalid method'
+        raise Exception.new "Invalid method for CreateQuestionsJob."
       end
     end
   end
 
-  def create_question(content_id, question_text)
-    question = Question.new
-    question.content_id = content_id
-    question.question = question_text
-    question.save!
-  end
+  private
+    def create_questions content_id, page_text
+      begin
+        question_set = OpenAiApi.fetch_question_set page_text
+      rescue Exception => ex
+        raise Exception.new "Error encountered while fetching question set.\n%{error_info}" % 
+          {error_info: ex.inspect}
+      end
+
+      begin
+        question_set.each do |question|
+          self.create_question content_id, question
+        end
+      rescue Exception => ex
+        raise Exception.new "Failed to create a question from GenerateQuestionsJob.\n%{err}" % {err: ex.inspect}
+      end
+    end
+
+    def create_question content_id, question_text
+      question = Question.new
+      question.content_id = content_id
+      question.question = question_text
+      question.save!
+    end
 end
