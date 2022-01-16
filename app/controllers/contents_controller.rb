@@ -27,9 +27,11 @@ class ContentsController < ApplicationController
   def create
     @content = Content.new(content_params)
     @content.user = current_user
-    GenerateQuestionsJob.perform_later params[:content_id], :one_per_page
+
     respond_to do |format|
       if @content.save
+        puts "RUN #{@content.id}"
+        GenerateQuestionsJob.perform_later @content.id, :one_per_page
         format.html { redirect_to @content, notice: 'Content was successfully created.' }
         format.json { render :show, status: :created, location: @content }
       else
