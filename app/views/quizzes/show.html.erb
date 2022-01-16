@@ -1,7 +1,7 @@
 <%= link_to '← Back', contents_path, class: "text-md text-neutral-500" %>
 <h1 class="heading-1">Your Quiz</h1>
 <ul class="flex flex-col space-y-4 w-full list-decimal list-inside">
-  <% @questions.each_with_index do |question, i| %>
+  <% @questions.shuffle.each_with_index do |question, i| %>
       <li class="card flex flex-row quiz-card" id="<%= i + 1 %>">
         <span class="mr-2"><%= i + 1 %>.</span>
         <ul class="inline-block">
