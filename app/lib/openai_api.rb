@@ -16,7 +16,6 @@ TODOs
     - tweak params
 =end
 
-
 module OpenAiApiParameters 
   @@question_gen_prompt = "
 Create a list of questions based on the content
@@ -64,9 +63,6 @@ Content:
 Questions:
 
 "
-  def self.question_gen_prompt
-    @@question_gen_prompt
-  end
 
   # Sourced from https://en.wikipedia.org/wiki/Fall_of_the_Western_Roman_Empire#:~:text=The%20fall%20of%20the%20Western,divided%20into%20several%20successor%20polities.
   @@answer_examples = [
@@ -74,25 +70,15 @@ Questions:
     ["What were some of the immediate factors that contributed to the collapse?", "Some of the immediate factors that contributed to the collapse include a smaller and less effective army, the health and size of the Roman population, the strength of the economy, the competence of the emporers, the internal struggles for power, and changes in religious beliefs. External pressures from invading barbarians, climatic changes, and epidemic disease exaggerated many of these immediate factors."],
     ["What are some of the major subjects of the historiography of the ancient world?", "The reasons for the collapse of the Western Roman Empire."]
   ]
-  def self.answer_examples
-    @@answer_examples
-  end
 
   @@answer_examples_context = "The fall of the Western Roman Empire was the loss of central political control in the Western Roman Empire, a process in which the Empire failed to enforce its rule, and its vast territory was divided into several successor polities. The Roman Empire lost the strengths that had allowed it to exercise effective control over its Western provinces; modern historians posit factors including the effectiveness and numbers of the army, the health and numbers of the Roman population, the strength of the economy, the competence of the emperors, the internal struggles for power, the religious changes of the period, and the efficiency of the civil administration. Increasing pressure from invading barbarians outside Roman culture also contributed greatly to the collapse. Climatic changes and epidemic disease drove many of these immediate factors. The reasons for the collapse are major subjects of the historiography of the ancient world and they inform much modern discourse on state failure."
-  def self.answer_examples_context
-    @@answer_examples_context
-  end
 
   # Maximum is 2048 but due to approximated token length of 4 rounding down to 2000
   @@max_tokens = 2000
-  def self.max_tokens
-    @@max_tokens
-  end
 
   @@min_completion_tokens = 300
-  def self.min_completion_tokens
-    @@min_completion_tokens
-  end
+
+  @@answer_stop = ["\n"]
 end
 
 module OpenAiApi
@@ -127,7 +113,8 @@ module OpenAiApi
       examples: @@answer_examples,
       examples_context: @@answer_examples_context,
       documents: [content],
-      max_tokens: @@min_completion_tokens
+      max_tokens: @@min_completion_tokens,
+      stop: @@answer_stop
     })
   end
   module_function :fetch_answer
@@ -169,7 +156,7 @@ module OpenAiApi
       when :question_set
         response.parsed_response["choices"].map{ |questions| questions["text"].strip.split("\n").map{ |question| question.strip }}.first
       when :answer
-        response.parsed_response["answers"]
+        response.parsed_response["answers"].first.strip
       else
         raise Exception.new "Invalid response_type passed into OpenAiApi."
       end
