@@ -39,9 +39,9 @@ Create a list of questions based on the content
 Content:
 Technology is the system/tool we used to solve problems. Education is one of the greatest technologies ever created (students are the product of this technological system). Government is another form of technology. Both the above are considered invisible technologies (systems that do not necessarily produce physical objects).
 Questions:
-1. What is technology?
-2. What could be considered one of the greatest technologies ever created?
-3. What is the class of technologies that does not produce physical objects?
+What is technology?
+What could be considered one of the greatest technologies ever created?
+What is the class of technologies that does not produce physical objects?
 
 Content:
 Herbert Butterfield 
@@ -49,8 +49,8 @@ Herbert Butterfield
 - Argued that what we should study is what scientists do internally within science (he was a physicist so he focused specifically on that field) 
 - Was a prominent way of looking at science and our relationship with it for a long time but not anymore 
 Questions:
-1. Did Herbert Butterfield believe that external factors had an impact on science and technology?
-2. Is the belief that scientific and technological progress is not impacted by external factors prominent now?
+Did Herbert Butterfield believe that external factors had an impact on science and technology?
+Is the belief that scientific and technological progress is not impacted by external factors prominent now?
 
 Content:
 Machine 
@@ -58,32 +58,35 @@ Machine
 - Turing machine (anything computed by a non-biological computer can be computed by a Turing machine)
 - Automates processes
 Questions:
-1. What is a Turing machine?
-2. What is a main function of machines?
-3. Is a computer an example of a machine?
+What is a Turing machine?
+What is a main function of machines?
+Is a computer an example of a machine?
 
 Content:
 Learning
--	More than one type of learning
--	Learning from instructions (i.e., multidigit addition)
--	Learning from experience (i.e., recognizing alphabetical characters)
--	Coding/programming refers to learning from instructions
--	Machine learning refers to learning from experience
+- More than one type of learning
+- Learning from instructions (i.e., multidigit addition)
+- Learning from experience (i.e., recognizing alphabetical characters)
+- Coding/programming refers to learning from instructions
+- Machine learning refers to learning from experience
 Questions:
-1. What are the different types of learning?
-2. What is an example of learning from instructions and learning from experience, respectively?
-3. What is the difference between coding/programming and machine learning?
+What are the different types of learning?
+What is an example of learning from instructions and learning from experience, respectively?
+What is the difference between coding/programming and machine learning?
 
 Content:
 %{content}
 Questions:
+
 "
   @@answer_gen_prompt = ""
-  @@max_tokens = 2048
+  @@max_tokens = 2000 # 2048 but due to approximated token length of 4 rounding down to 2000
   @@min_completion_tokens = 300
 
   def fetch_question_set_array content_array
-    content_array.each{ |content| question_sets.append(self.fetch_question_set content) }
+    content_array.each do |content| 
+      question_sets.append(self.fetch_question_set content)
+    end
   end
   module_function :fetch_question_set_array
 
@@ -93,14 +96,13 @@ Questions:
     self.parse_response(OpenAiClient.instance.client.completions(
       engine: "davinci-instruct-beta-v3", 
       parameters: {
-        prompt: prompt, 
+        prompt: prompt,
         max_tokens: completion_tokens
       }))
   end
   module_function :fetch_question_set
 
   def self.generate_prompt is_question_gen, content
-    # TODO answer gen
     prompt = is_question_gen ? @@question_gen_prompt % {content: content} : @@answer_gen_prompt
     prompt_tokens = self.calculate_prompt_tokens prompt
     if prompt_tokens >= @@max_tokens - @@min_completion_tokens
@@ -125,7 +127,7 @@ Questions:
   def self.parse_response response
     if response.code == 200
       begin
-        response.parsed_response["choices"].map{ |questions| questions["text"].split("\n") }.first
+        response.parsed_response["choices"].map{ |questions| questions["text"].strip.split("\n") }.first
       rescue Exception => ex
         raise Exception.new "Unexpected error occured while parsing successful response.\n%{error_info}" % 
           {error_info: ex.inspect}
