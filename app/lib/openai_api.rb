@@ -95,6 +95,8 @@ Questions:
 
   # Maximum is 2048 but due to approximated token length of 4 rounding down to be safe
   @@max_tokens = 1900
+  
+  @@num_questions = 5
 
   @@min_completion_tokens = 300
 
@@ -121,7 +123,8 @@ module OpenAiApi
       engine: "davinci-instruct-beta-v3", 
       parameters: {
         prompt: prompt,
-        max_tokens: completion_tokens
+        max_tokens: completion_tokens,
+        n: @@num_questions
       })
   end
   module_function :fetch_question_set
