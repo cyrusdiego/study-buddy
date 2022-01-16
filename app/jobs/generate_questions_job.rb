@@ -40,7 +40,6 @@ class GenerateQuestionsJob < ApplicationJob
       begin
         question_set.each do |question|
           answer = OpenAiApi.fetch_answer page_text, question
-          byebug
           self.create_question content_id, question, answer
         end
       rescue Exception => ex
