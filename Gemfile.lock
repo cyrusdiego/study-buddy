@@ -94,6 +94,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.7.6)
     erubi (1.10.0)
     ffi (1.15.5)
     formatador (0.3.0)
@@ -113,6 +114,9 @@ GEM
       guard-compat (~> 1.2)
       minitest (>= 3.0)
     hashery (2.1.2)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
@@ -128,8 +132,10 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
     method_source (1.0.0)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
-    mini_portile2 (2.7.1)
     minitest (5.11.3)
     minitest-reporters (1.3.8)
       ansi
@@ -137,12 +143,10 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     msgpack (1.4.2)
+    multi_xml (0.6.0)
     nenv (0.3.0)
     nio4r (2.5.8)
-    nokogiri (1.13.1)
-      mini_portile2 (~> 2.7.0)
-      racc (~> 1.4)
-    nokogiri (1.13.1-x86_64-linux)
+    nokogiri (1.13.1-arm64-darwin)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -205,6 +209,9 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    ruby-openai (1.4.0)
+      dotenv (~> 2.7.6)
+      httparty (>= 0.18.1, < 0.21.0)
     ruby-progressbar (1.11.0)
     ruby-rc4 (0.1.5)
     rubyzip (2.3.2)
@@ -235,9 +242,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
-    tailwindcss-rails (2.0.4)
-      railties (>= 6.0.0)
-    tailwindcss-rails (2.0.4-x86_64-linux)
+    tailwindcss-rails (2.0.4-arm64-darwin)
       railties (>= 6.0.0)
     thor (1.2.1)
     tilt (2.0.10)
@@ -271,8 +276,7 @@ GEM
     zeitwerk (2.5.3)
 
 PLATFORMS
-  ruby
-  x86_64-linux
+  arm64-darwin-21
 
 DEPENDENCIES
   active_storage_validations
@@ -291,6 +295,7 @@ DEPENDENCIES
   puma (= 5.3.1)
   rails (= 6.1.4.1)
   rails-controller-testing (= 1.0.5)
+  ruby-openai
   sass-rails (= 6.0.0)
   selenium-webdriver (= 3.142.7)
   spring (= 2.1.1)
