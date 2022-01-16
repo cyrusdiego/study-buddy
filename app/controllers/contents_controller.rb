@@ -31,7 +31,7 @@ class ContentsController < ApplicationController
     respond_to do |format|
       if @content.save
         puts "RUN #{@content.id}"
-        GenerateQuestionsJob.perform_later @content.id, :one_per_page
+        GenerateQuestionsJob.perform_later @content.id, :per_page
         format.html { redirect_to @content, notice: 'Content was successfully created.' }
         format.json { render :show, status: :created, location: @content }
       else
