@@ -10,7 +10,7 @@ class Content < ApplicationRecord
   validates :title, presence: true
 
   def summary
-    return "#{self.title} (#{self.questions.count} questions)"
+    return "#{self.title} (#{self.questions.count} #{'question'.pluralize(self.questions.count)})"
   end
 
   # this is the tag's list setter which will capture
