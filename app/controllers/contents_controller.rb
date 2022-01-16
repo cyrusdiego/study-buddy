@@ -23,6 +23,7 @@ class ContentsController < ApplicationController
 
   # GET /contents/1/edit
   def edit
+    @content = Content.find(params[:id])
   end
 
   # POST /contents
