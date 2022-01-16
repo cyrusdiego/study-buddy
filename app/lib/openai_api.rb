@@ -26,7 +26,7 @@ What could be considered one of the greatest technologies ever created?
 What is the class of technologies that does not produce physical objects?
 
 Content:
-Herbert Butterfield 
+Herbert Butterfield's Perspective on Science and Technology
 - Argued that external factors have no impact on progress of science and technology (all internal) 
 - Argued that what we should study is what scientists do internally within science (he was a physicist so he focused specifically on that field) 
 - Was a prominent way of looking at science and our relationship with it for a long time but not anymore 
@@ -36,16 +36,14 @@ Is the belief that scientific and technological progress is not impacted by exte
 
 Content:
 Machine 
-- Computer
-- Turing machine (anything computed by a non-biological computer can be computed by a Turing machine)
-- Automates processes
+A Turing machine is an abstract computational model that performs computations by reading and writing to an infinite tape. Turing machines provide a powerful computational model for solving problems in computer science and testing the limits of computation. Turing machines are similar to finite automata/finite state machines but have the advantage of unlimited memory. They are capable of simulating common computers; a problem that a common computer can solve (given enough memory) will also be solvable using a Turing machine, and vice versa. Turing machines were invented by the esteemed computer scientist Alan Turing in 1936.
 Questions:
 What is a Turing machine?
-What is a main function of machines?
-Is a computer an example of a machine?
+Are Turing machines capable of solving all problems that a common computer can solve (given enough memory)?
+Who invented the Turing machine?
 
 Content:
-Learning
+Machine Learning and Types of Learning
 - More than one type of learning
 - Learning from instructions (i.e., multidigit addition)
 - Learning from experience (i.e., recognizing alphabetical characters)
@@ -61,6 +59,9 @@ Content:
 Questions:
 
 "
+
+  # The sampling temperature to use (higher values means the engine will take more risks)
+  @@question_gen_temperature = 0.2
 
   # Sourced from https://en.wikipedia.org/wiki/Canada
   @@answer_examples = [
@@ -113,7 +114,8 @@ module OpenAiApi
       engine: "davinci-instruct-beta-v3", 
       parameters: {
         prompt: prompt,
-        max_tokens: completion_tokens
+        max_tokens: completion_tokens,
+        temperature: @@question_gen_temperature
       })
   end
   module_function :fetch_question_set

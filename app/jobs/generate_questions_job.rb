@@ -13,7 +13,8 @@ class GenerateQuestionsJob < ApplicationJob
 
       case method
       when :per_page
-        r.pages.first(20).each do |page|
+        max_pages_to_process = 20
+        r.pages.first(max_pages_to_process).each do |page|
           self.create_questions content_id, page.text
         end
 
@@ -38,10 +39,7 @@ class GenerateQuestionsJob < ApplicationJob
     end
 
     begin
-      # question_set.first(1).each do |question|
-      #   answer = OpenAiApi.fetch_answer page_text, question
-      #   self.create_question content_id, question, answer
-      # end
+      # Fetch one question per question set
       answer = OpenAiApi.fetch_answer page_text, question_set.first
       self.create_question content_id, question_set.first, answer
     rescue Exception => ex
