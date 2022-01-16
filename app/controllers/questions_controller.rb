@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     # @question = Question.new(question_params)
-    GenerateQuestionsJob.perform_later params[:content_id], :one_randomly
+    GenerateQuestionsJob.perform_later params[:content_id], :random_page
     respond_to do |format|
       # if @question.save
       format.html { redirect_to @content, notice: 'A new question is being generated, please refresh the page in a few moments to see the question 🤩' }
