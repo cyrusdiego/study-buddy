@@ -19,7 +19,7 @@ class GenerateQuestionsJob < ApplicationJob
 
       when :random_page
         page = r.pages[rand(0..(r.page_count - 1))]
-        self.create_questions content_id, page.text
+        self.create_questions content_id, page.text, 1
       else
         raise Exception.new "Invalid value (%{value}) for CreateQuestionsJob::perform method parameter." %
                               { value: method }
