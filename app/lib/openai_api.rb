@@ -2,40 +2,38 @@ require "singleton"
 require "ruby/openai"
 
 =begin
-
 TODOs
 
 - overall
-    - make openaiclient private?
+  - make openaiclient private?
 
 - question gen
-    - open ai related
-        - refine question gen prompt
-        - tweak params
+  - open ai related
+    - refine question gen prompt
+    - tweak params
 
 - answer gen
-    - open ai related
-        - create answer gen prompt
-        - tweak params
-    - code related
-        - create util functions for answer gen
-        - test question gen util functions
-        - figure out openai response object and build in error handling
-
+  - open ai related
+    - create answer gen prompt
+    - tweak params
+  - code related
+    - create util functions for answer gen
+    - test question gen util functions
+    - figure out openai response object and build in error handling
 =end
 
 module OpenAiApi
-    class OpenAiClient
-        include Singleton
+  class OpenAiClient
+    include Singleton
 
-        attr_reader :client
-
-        def initialize
-            @client = OpenAI::Client.new(access_token: Rails.application.credentials.openai[:access_token])
-        end
+    attr_reader :client
+    
+    def initialize
+      @client = OpenAI::Client.new(access_token: Rails.application.credentials.openai[:access_token])
     end
+  end
 
-    @@question_gen_prompt = "
+  @@question_gen_prompt = "
 Create a list of questions based on the content
 
 Content:
@@ -80,70 +78,69 @@ Content:
 %{content}
 Questions:
 "
-    @@answer_gen_prompt = ""
-    @@max_tokens = 2048
-    @@min_completion_tokens = 300
+  @@answer_gen_prompt = ""
+  @@max_tokens = 2048
+  @@min_completion_tokens = 300
 
-    def fetch_question_set_array content_array
-        content_array.each{ |content| question_sets.append(self.fetch_question_set content) }
+  def fetch_question_set_array content_array
+    content_array.each{ |content| question_sets.append(self.fetch_question_set content) }
+  end
+  module_function :fetch_question_set_array
+
+  def fetch_question_set content
+    prompt = self.generate_prompt true, content
+    completion_tokens = self.calculate_completion_tokens prompt
+    self.parse_response(OpenAiClient.instance.client.completions(
+      engine: "davinci-instruct-beta-v3", 
+      parameters: {
+        prompt: prompt, 
+        max_tokens: completion_tokens
+      }))
+  end
+  module_function :fetch_question_set
+
+  def self.generate_prompt is_question_gen, content
+    # TODO answer gen
+    prompt = is_question_gen ? @@question_gen_prompt % {content: content} : @@answer_gen_prompt
+    prompt_tokens = self.calculate_prompt_tokens prompt
+    if prompt_tokens >= @@max_tokens - @@min_completion_tokens
+      raise Exception.new "Content is too large!"
     end
-    module_function :fetch_question_set_array
+    prompt
+  end
+  private_class_method :generate_prompt
 
-    def fetch_question_set content
-        prompt = self.generate_prompt true, content
-        completion_tokens = self.calculate_completion_tokens prompt
-        self.parse_response(OpenAiClient.instance.client.completions(
-            engine: "davinci-instruct-beta-v3", 
-            parameters: {
-                prompt: prompt, 
-                max_tokens: completion_tokens
-            }))
+  def self.calculate_prompt_tokens prompt
+    # Based on fact that a token is approx. 4 characters (https://openai.com/api/pricing/#faq-token)
+    (prompt.length / 4) + 1
+  end
+  private_class_method :calculate_prompt_tokens
+
+  def self.calculate_completion_tokens prompt
+    prompt_tokens = self.calculate_prompt_tokens prompt
+    @@max_tokens - prompt_tokens
+  end
+  private_class_method :calculate_completion_tokens
+
+  def self.parse_response response
+    if response.code == 200
+      begin
+        response.parsed_response["choices"].map{ |questions| questions["text"].split("\n") }.first
+      rescue Exception => ex
+        raise Exception.new "Unexpected error occured while parsing successful response.\n%{error_info}" % 
+          {error_info: ex.inspect}
+      end
+    else
+      begin
+        raise Exception.new "%{status_code}: %{error_msg}" % {
+          status_code: response.code, 
+          error_msg: response.parsed_response["error"]["message"]
+        }
+      rescue Exception => ex
+        raise Exception.new "Unexpected error occured while parsing erroneous response.\n%{error_info}" % 
+          {error_info: ex.inspect}
+      end
     end
-    module_function :fetch_question_set
-
-    def self.generate_prompt is_question_gen, content
-        # TODO answer gen
-        prompt = is_question_gen ? @@question_gen_prompt % {content: content} : @@answer_gen_prompt
-        prompt_tokens = self.calculate_prompt_tokens prompt
-        if prompt_tokens >= @@max_tokens - @@min_completion_tokens
-            raise Exception.new "Content is too large!"
-        end
-        prompt
-    end
-    private_class_method :generate_prompt
-
-    def self.calculate_prompt_tokens prompt
-        # Based on fact that a token is approx. 4 characters (https://openai.com/api/pricing/#faq-token)
-        (prompt.length / 4) + 1
-    end
-    private_class_method :calculate_prompt_tokens
-
-    def self.calculate_completion_tokens prompt
-        prompt_tokens = self.calculate_prompt_tokens prompt
-        @@max_tokens - prompt_tokens
-    end
-    private_class_method :calculate_completion_tokens
-
-    def self.parse_response response
-        if response.code == 200
-            begin
-                response.parsed_response["choices"].map{ |questions| questions["text"].split("\n") }.first
-            rescue Exception => ex
-                raise Exception.new "Unexpected error occured while parsing successful response.\n%{error_info}" % 
-                    {error_info: ex.inspect}
-            end
-        else
-            begin
-                raise Exception.new "%{status_code}: %{error_msg}" % {
-                    status_code: response.code, 
-                    error_msg: response.parsed_response["error"]["message"]
-                }
-            rescue Exception => ex
-                raise Exception.new "Unexpected error occured while parsing erroneous response.\n%{error_info}" % 
-                    {error_info: ex.inspect}
-            end
-        end
-
-    end
-    private_class_method :parse_response
+  end
+  private_class_method :parse_response
 end
