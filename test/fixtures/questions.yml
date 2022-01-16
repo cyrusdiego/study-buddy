@@ -1,7 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  question: MyText
+  question: What is a CPU?
+  content: one
+
+test:
+  question: What is distributed memory?
+  content: one
+
+test1:
+  question: What is parallel programming?
   content: one
 
 two:
