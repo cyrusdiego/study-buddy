@@ -13,7 +13,7 @@ class GenerateQuestionsJob < ApplicationJob
 
       case method
       when :per_page
-        r.pages.each do |page|
+        r.pages.first(20).each do |page|
           self.create_questions content_id, page.text, r.page_count
         end
 
