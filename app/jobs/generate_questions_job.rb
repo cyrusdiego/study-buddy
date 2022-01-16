@@ -23,35 +23,40 @@ class GenerateQuestionsJob < ApplicationJob
         ß
       else
         raise Exception.new "Invalid value (%{value}) for CreateQuestionsJob::perform method parameter." %
-          {value: method}
+                              { value: method }
       end
     end
   end
 
   private
-    def create_questions content_id, page_text
-      begin
-        question_set = OpenAiApi.fetch_question_set page_text
-      rescue Exception => ex
-        raise Exception.new "Error encountered while fetching question set.\n%{error_info}" %
-          { error_info: ex.inspect }
-      end
 
-      begin
-        question_set.each do |question|
-          answer = OpenAiApi.fetch_answer page_text, question
-          self.create_question content_id, question, answer
-        end
-      rescue Exception => ex
-        raise Exception.new "Failed to create a question.\n%{err}" % { err: ex.inspect }
-      end
+  def create_questions content_id, page_text
+    begin
+      question_set = OpenAiApi.fetch_question_set page_text
+    rescue Exception => ex
+      raise Exception.new "Error encountered while fetching question set.\n%{error_info}" %
+                            { error_info: ex.inspect }
     end
 
-    def create_question content_id, question_text, answer_text
-      question = Question.new
-      question.content_id = content_id
-      question.question = question_text
-      question.answer = answer_text
-      question.save!
+    begin
+      question_set.each do |question|
+        answer = OpenAiApi.fetch_answer page_text, question
+        self.create_question content_id, question, answer
+      end
+    rescue Exception => ex
+      raise Exception.new "Failed to create a question.\n%{err}" % { err: ex.inspect }
     end
+  end
+
+  def create_question content_id, question_text, answer_text
+    question = Question.new
+    question.content_id = content_id
+    question.question = question_text
+    question.answer = answer_text
+    question.save!
+    ActionCable.server.broadcast "questions_#{content_id}",
+                                 question: question.question,
+                                 answer: question.answer
+    head :ok
+  end
 end

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
 
   resources :contents do
     resources :questions
   end
-resources :quizzes
+
+  resources :quizzes
 
   devise_for :users
   devise_scope :user do
