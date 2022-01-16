@@ -11,14 +11,28 @@
     </div>
   <% end %>
 
-  <div class="mb-4">
-    <%= form.label 'Content to quiz you on', class: 'label' %>
-    <%= form.collection_check_boxes :content_ids, current_user.contents.all, :id, :summary do |content| %>
-      <div class="flex flex-row items-center space-x-4">
-        <%= content.check_box class: 'checkbox' %>
-        <%= content.label %>
+  <div class="mb-4 flex flex-row space-x-8">
+    <div class="flex flex-col">
+      <%= form.label 'Content to quiz you on', class: 'label' %>
+      <%= form.collection_check_boxes :content_ids, current_user.contents.all, :id, :summary do |content| %>
+        <div class="flex flex-row items-center space-x-4">
+          <%= content.check_box class: 'checkbox' %>
+          <%= content.label %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col">
+      <%= form.label 'Tags', class: 'label' %>
+      <div class="flex flex-col">
+        <% Tag.all.each do |tag| %>
+          <div class="flex flex-row space-x-2 items-center">
+            <%= form.check_box tag, class: 'checkbox' %>
+            <%= form.label tag.name  %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
 
   <div class="flex flex-row space-x-4 justify-end items-center">
