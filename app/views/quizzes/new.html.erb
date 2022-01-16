@@ -1,1 +1,32 @@
-<p>TODO</p>
+<div class='card'>
+  <%= form_with(model: quiz) do |form| %>
+    <% if quiz.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+
+        <ul>
+          <% quiz.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= form.label :title, class: 'block text-gray-700 font-bold mb-2' %>
+      <%= form.text_field :title %>
+    </div>
+
+    <% if not quiz.file.present? %>
+      <div class="mb-4">
+        <%= form.label :file, class: 'block text-gray-700 font-bold mb-2' %>
+        <%= form.file_field :file %>
+      </div>
+    <% end %>
+
+    <div class="flex flex-row justify-end items-center">
+      <%= link_to 'Back', quizzes_path, class: 'mr-4' %>
+      <%= form.submit class: 'bg-blue-500 font-bold text-white py-2 px-4 rounded-lg' %>
+    </div>
+  <% end %>
+</div>
