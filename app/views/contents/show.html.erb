@@ -1,7 +1,29 @@
-<p>
-  <strong>Title:</strong>
-  <%= @content.title %>
-</p>
+<div class="space-y-4">
+  <div>
+    <h1 class="heading-1"><%= @content.title %></h1>
+    <p>CONTENT HERE</p>
+  </div>
 
-<%= link_to 'Edit', edit_content_path(@content) %> |
-<%= link_to 'Back', contents_path %>
+  <div>
+    <h1 class="heading-1">Questions</h1>
+    <div class="flex justify-center items-center flex-col">
+      <div>
+        <% @content.questions.each do |question| %>
+            <div class="card">
+              <h2 class="heading-2"><%= question.question %></h2>
+            </div>
+        <% end %>
+      </div>
+      <div>
+        <%= button_to "Add Question", class: "primary-button" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--<%#= link_to 'Edit', edit_content_path(@content) %> |-->
+<%#= link_to 'Back', contents_path %>
