@@ -26,7 +26,7 @@ class QuizzesController < ApplicationController
         format.html { redirect_to @quiz }
         format.json { render :show, status: :created, location: @quiz }
       else
-        format.html { redirect_to contents_url, alert: 'Failed to create quiz.' }
+        format.html { render :new }
         format.json { render json: @quiz.errors, status: :unprocessable_entity }
       end
     end

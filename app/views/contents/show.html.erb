@@ -24,7 +24,15 @@
     <div class="flex justify-center items-center w-full h-[65vh]">
       <iframe src="<%= url_for(@content.file) %>" width="100%" height="100%"></iframe>
     </div>
-    <h1 class="heading-1">Questions</h1>
+    <div class="flex flex-row items-center">
+      <div class="grow mb-8 mt-10">
+        <h1 class="heading-1 inline">Questions</h1>
+        <% if @content.questions.count > 0 %>
+          <span class="pl-4 text-neutral-500">(<%= pluralize(@content.questions.count, 'question') %>)</span>
+        <% end %>
+      </div>
+      <%= button_to "Add Question", content_questions_path(@content), method: :post, class: "primary-button" %>
+    </div>
     <div class="flex flex-col justify-center items-center">
       <ul class="flex flex-col space-y-4 w-full list-decimal list-inside mb-4">
         <% @content.questions.each_with_index do |question, i| %>
@@ -45,9 +53,6 @@
           </li>
         <% end %>
       </ul>
-      <div>
-        <%= button_to "Add Question", content_questions_path(@content), method: :post, class: "primary-button" %>
-      </div>
     </div>
   </div>
 </div>
