@@ -1,0 +1,23 @@
+<%= form_with(model: quiz) do |form| %>
+  <% if quiz.errors.any? %>
+    <div class="alert">
+      <h2 class="font-bold"><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+
+      <ul class="list-disc list-inside">
+        <% quiz.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= form.label 'Quiz Content', class: 'label' %>
+    <%= form.collection_check_boxes(:content_ids, current_user.contents.all, :id, :title) %>
+  </div>
+
+  <div class="flex flex-row justify-end items-center">
+    <%= link_to 'Back', contents_path, class: 'secondary-button' %>
+    <%= form.submit class: 'primary-button' %>
+  </div>
+<% end %>
