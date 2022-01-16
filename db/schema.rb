@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_16_020819) do
+ActiveRecord::Schema.define(version: 2022_01_16_022230) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 2022_01_16_020819) do
   create_table "quizzes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,4 +95,5 @@ ActiveRecord::Schema.define(version: 2022_01_16_020819) do
   add_foreign_key "questions", "contents"
   add_foreign_key "quiz_contents", "contents"
   add_foreign_key "quiz_contents", "quizzes"
+  add_foreign_key "quizzes", "users"
 end
