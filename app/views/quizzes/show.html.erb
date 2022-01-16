@@ -1,9 +1,10 @@
-<ol>
-  <% @quiz.contents.each do |content| %>
-    <% content.questions.each_with_index do |question, i| %>
-      <li><%= question.question %></li>
-    <% end %>
+<h1 class="heading-1">Your Quiz</h1>
+<% i = 0 %>
+<% @quiz.contents.shuffle.each do |content| %>
+  <% content.questions.shuffle.each do |question| %>
+    <% i += 1 %>
+    <div class="card mb-6">
+      <p><%= i %>. <%= question.question %></p>
+    </div>
   <% end %>
-</ol>
-
-<!--TODO: REfactor-->
+<% end %>

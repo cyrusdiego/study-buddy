@@ -20,7 +20,7 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully created.' }
+        format.html { redirect_to @quiz }
         format.json { render :show, status: :created, location: @quiz }
       else
         format.html { redirect_to contents_url, alert: 'Failed to create quiz.' }
