@@ -12,11 +12,19 @@
 </head>
 
 <body class="bg-neutral-100">
+
 <%= render "layouts/header" %>
+
 <main class="container mx-auto mt-28 px-5 flex flex-col">
-  <p id="notice"><%= notice %></p>
-  <p id="alert"><%= alert %></p>
+  <% if notice %>
+    <p id="notice" class="notice"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p id="alert" class="alert"><%= alert %></p>
+  <% end %>
+
   <%= yield %>
 </main>
+
 </body>
 </html>

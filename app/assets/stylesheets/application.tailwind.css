@@ -44,4 +44,16 @@
     .label {
         @apply block text-gray-700 font-bold mb-2
     }
+
+    .alert-base {
+        @apply p-4 my-4 rounded-lg border-2 border-solid
+    }
+
+    .notice {
+        @apply alert-base bg-primary-300/20 border-primary-400
+    }
+
+    .alert {
+        @apply alert-base bg-red-300/20 border-red-400
+    }
 }
