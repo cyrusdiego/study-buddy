@@ -33,7 +33,7 @@ class GenerateQuestionsJob < ApplicationJob
     begin
       question_set = OpenAiApi.fetch_question_set page_text
     rescue Exception => ex
-      raise Exception.new "Error encountered while fetching question set.\n%{error_info}" %
+      logger.debug "Error encountered while fetching question set.\n%{error_info}" %
                             { error_info: ex.inspect }
     end
 
@@ -43,7 +43,7 @@ class GenerateQuestionsJob < ApplicationJob
         self.create_question content_id, question, answer
       end
     rescue Exception => ex
-      raise Exception.new "Failed to create a question.\n%{err}" % { err: ex.inspect }
+      logger.debug "Failed to create a question.\n%{err}" % { err: ex.inspect }
     end
   end
 
