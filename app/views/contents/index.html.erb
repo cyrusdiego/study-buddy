@@ -53,6 +53,10 @@
   <% end %>
 
   <% if @contents.empty? %>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+      <%= image_tag("no_data.svg", width: 400, class: 'pt-32') %>
+      <p class="pt-6 label">There's no content yet, upload a PDF to get started!</p>
+    </div>
   <% end %>
 </div>
 
