@@ -128,7 +128,6 @@ module OpenAiApi
   module_function :fetch_question_set
 
   def fetch_answer content, question
-    content.gsub! "\n", " "
     answer_tokens = self.calculate_answer_tokens content, question
     self.parse_response :answer, OpenAiClient.instance.client.answers(parameters: {
       model: "curie",
