@@ -38,7 +38,7 @@
     }
 
     .text-field {
-        @apply rounded-md grow
+        @apply rounded-md grow w-full
     }
 
     .label {
@@ -46,7 +46,7 @@
     }
 
     .alert-base {
-        @apply p-4 my-4 rounded-lg border-2 border-solid
+        @apply p-4 rounded-lg border-2 border-solid mb-4
     }
 
     .notice {

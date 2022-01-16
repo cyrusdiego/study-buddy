@@ -4,15 +4,11 @@
 </div>
 
 <div class="flex flex-col space-y-4 items-center">
-  <ul class="flex flex-col space-y-4 w-full">
-    <% @contents.each do |content| %>
-      <li class="card">
-        <%= link_to content do %>
-          <h2 class="heading-2"><%= content.title %></h2>
-        <% end %>
-      </li>
+  <% @contents.each do |content| %>
+    <%= link_to content, class: 'card w-full' do %>
+      <h2 class="heading-2"><%= content.title %></h2>
     <% end %>
-  </ul>
+  <% end %>
 
   <%= link_to 'New Content', new_content_path, class: 'primary-button mt-8' %>
 </div>
