@@ -67,18 +67,18 @@ Questions:
   @@answer_examples = [
     [
       "What caused the fall of the Western Roman Empire?", 
-      "The fall of the Western Roman Empire was due to a loss of effective control over its Western provinces.$$$$"
+      "The fall of the Western Roman Empire was due to a loss of effective control over its Western provinces."
     ],
     [
       "What were some of the immediate factors that contributed to the collapse?", 
       "Some of the immediate factors that contributed to the collapse include a smaller and less effective army, "\
       "the health and size of the Roman population, the strength of the economy, the competence of the emporers, "\
       "the internal struggles for power, and changes in religious beliefs. External pressures from invading "\
-      "barbarians, climatic changes, and epidemic disease exaggerated many of these immediate factors.$$$$"
+      "barbarians, climatic changes, and epidemic disease exaggerated many of these immediate factors."
     ],
     [
       "What are some of the major subjects of the historiography of the ancient world?", 
-      "The reasons for the collapse of the Western Roman Empire.$$$$"
+      "The reasons for the collapse of the Western Roman Empire."
     ]
   ]
 
@@ -98,7 +98,7 @@ Questions:
 
   @@min_completion_tokens = 300
 
-  @@answer_stop = ["$$$$"]
+  @@answer_stop = ["\n", "<|endoftext|>"]
 end
 
 module OpenAiApi
@@ -127,6 +127,7 @@ module OpenAiApi
   module_function :fetch_question_set
 
   def fetch_answer content, question
+    content.gsub! "\n", ""
     answer_tokens = self.calculate_answer_tokens content, question
     self.parse_response :answer, OpenAiClient.instance.client.answers(parameters: {
       model: "curie",
