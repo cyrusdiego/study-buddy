@@ -24,7 +24,7 @@
   <% unless content.file.present? %>
     <div class="mb-4">
       <%= form.label :file, class: 'label' %>
-      <%= form.file_field :file %>
+      <%= form.file_field :file, class: 'file-input' %>
     </div>
   <% end %>
 
