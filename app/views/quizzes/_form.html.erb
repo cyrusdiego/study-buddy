@@ -14,11 +14,14 @@
   <div class="mb-4">
     <%= form.label 'Content to quiz you on', class: 'label' %>
     <%= form.collection_check_boxes :content_ids, current_user.contents.all, :id, :summary do |content| %>
-      <%= content.check_box%> <%= content.label %><br />
+      <div class="flex flex-row items-center space-x-4">
+        <%= content.check_box class: 'checkbox' %>
+        <%= content.label %>
+      </div>
     <% end %>
   </div>
 
-  <div class="flex flex-row justify-end items-center">
+  <div class="flex flex-row space-x-4 justify-end items-center">
     <%= link_to 'Back', contents_path, class: 'secondary-button' %>
     <%= form.submit class: 'primary-button' %>
   </div>
