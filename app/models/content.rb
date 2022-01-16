@@ -16,8 +16,8 @@ class Content < ApplicationRecord
   # this is the tag's list setter which will capture
   # params[:customer][:add_phone_numbers] when you submit the form
   def add_tags=(tag_string)
-    tag_string.split(" ").each do |tag|
-      self.tags << Tag.new(name: tag) unless tags.map { |t| t.name }.include? tag
+    self.tags = tag_string.split(" ").uniq.map do |tag|
+      Tag.new(name: tag)
     end
   end
 

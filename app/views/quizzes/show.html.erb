@@ -5,11 +5,14 @@
   <% @quiz.contents.shuffle.each do |content| %>
     <% content.questions.shuffle.each do |question| %>
       <% i += 1 %>
-      <li class="card flex flex-row">
+      <li class="card flex flex-row quiz-card" id="<%= i %>">
         <span class="mr-2"><%= i %>.</span>
         <ul class="inline-block">
           <li><b>Q: </b><%= question.question %></li>
-          <li><b>A: </b><%= question.answer %></li>
+          <li>
+            <b>A: </b>
+            <span class="hint">&lt;Click to reveal...&gt;</span>
+            <span class="answer hidden"><%= question.answer %></span></li>
         </ul>
       </li>
     <% end %>
