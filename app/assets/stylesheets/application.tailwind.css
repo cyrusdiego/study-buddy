@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/
+
+@layer components {
+    .card {
+        @apply bg-neutral-50 rounded-lg p-6 drop-shadow-xl my-4
+    }
+
+    .heading-1 {
+        @apply text-3xl mb-4
+    }
+
+    .heading-2 {
+        @apply text-2xl font-medium mb-2
+    }
+
+    .primary-button {
+        @apply bg-primary-500 rounded-lg text-white p-2 drop-shadow-md hover:bg-primary-400 transition-colors
+    }
+}

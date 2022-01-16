@@ -15,6 +15,7 @@ class ContentsController < ApplicationController
   # GET /contents/new
   def new
     @content = Content.new
+    @content.user = current_user
   end
 
   # GET /contents/1/edit
@@ -25,6 +26,7 @@ class ContentsController < ApplicationController
   # POST /contents.json
   def create
     @content = Content.new(content_params)
+    @content.user = current_user
 
     respond_to do |format|
       if @content.save
@@ -69,6 +71,6 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:title)
+      params.require(:content).permit(:title, :file)
     end
 end

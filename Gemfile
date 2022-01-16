@@ -10,6 +10,7 @@ gem 'jbuilder',   '2.10.0'
 gem 'bootsnap',   '1.7.2', require: false
 gem 'devise'
 gem 'ruby-openai'
+gem 'active_storage_validations'
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
@@ -42,3 +43,4 @@ end
 # Uncomment the following line if you're running Rails
 # on a native Windows system:
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tailwindcss-rails", "~> 2.0"
