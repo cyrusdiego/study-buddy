@@ -157,7 +157,7 @@ module OpenAiApi
   private_class_method :calculate_tokens
 
   def self.calculate_completion_tokens prompt
-    prompt_tokens = self.calculate_prompt_tokens prompt
+    prompt_tokens = self.calculate_tokens prompt
     @@max_tokens - prompt_tokens
   end
   private_class_method :calculate_completion_tokens
