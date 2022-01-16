@@ -24,7 +24,7 @@ TODOs
 
 =end
 
-module OpenAiIntegration
+module OpenAiApi
     class ClientWrapper
         include Singleton
 
@@ -34,18 +34,20 @@ module OpenAiIntegration
             @client = OpenAI::Client.new(access_token: Rails.application.secrets.OPENAI_ACCESS_TOKEN)        
         end
     end
-    private_constant :ClientWrapper
+    # private_constant :ClientWrapper
 
     def fetch_question content
         client_wrapper = ClientWrapper.new
         fetch_question_set client_wrapper.client, content
     end
+    module_function :fetch_question
 
     def fetch_question_array content_array
         client_wrapper = ClientWrapper.new
         question_sets = Array.new
         content_array.each{ |content| question_sets.append(fetch_question_set client_wrapper.client content) }
     end
+    module_function :fetch_question_array
 
     def fetch_question_set client, content
         question_gen_prompt = %Q{
