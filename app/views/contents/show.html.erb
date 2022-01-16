@@ -19,9 +19,9 @@
         <% end %>
       </div>
       <div>
-        <%= button_to "Add Question", new_question_path, class: "primary-button" %>
+        <%= button_to "Add Question", content_questions_path(@content), method: :post, class: "primary-button" %>
       </div>
     </div>
   </div>
 </div>
-</div>
+
