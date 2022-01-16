@@ -183,8 +183,9 @@ module OpenAiApi
     begin
       case response_type
       when :question_set
-        response.parsed_response["choices"].map{ |questions| questions["text"].strip.split("\n")
-          .map{ |question| question.strip } }.first
+        response.parsed_response["choices"].map{ |questions| 
+          questions["text"].strip.split("\n").map{ |question| question.strip } 
+        }.first
       when :answer
         response.parsed_response["answers"].first.strip
       else
