@@ -65,4 +65,12 @@
     .checkbox {
         @apply checkbox-base checkbox-checked
     }
+
+    .invisible-until-group-hover {
+        @apply opacity-0 group-hover:opacity-100 w-full transition-opacity
+    }
+
+    .button-icon {
+        @apply max-h-8 p-1 w-full hover:bg-slate-200 rounded-md transition-colors
+    }
 }
