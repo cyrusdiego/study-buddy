@@ -1,10 +1,16 @@
 <h1 class="heading-1">Your Quiz</h1>
 <% i = 0 %>
-<% @quiz.contents.shuffle.each do |content| %>
-  <% content.questions.shuffle.each do |question| %>
-    <% i += 1 %>
-    <div class="card mb-6">
-      <p><%= i %>. <%= question.question %></p>
-    </div>
+<ul class="flex flex-col space-y-4 w-full list-decimal list-inside">
+  <% @quiz.contents.shuffle.each do |content| %>
+    <% content.questions.shuffle.each do |question| %>
+      <% i += 1 %>
+      <li class="card flex flex-row">
+        <span class="mr-2"><%= i %>.</span>
+        <ul class="inline-block">
+          <li><b>Q: </b><%= question.question %></li>
+          <li><b>A: </b><%= question.answer %></li>
+        </ul>
+      </li>
+    <% end %>
   <% end %>
-<% end %>
+</ul>

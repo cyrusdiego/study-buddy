@@ -38,17 +38,20 @@ class GenerateQuestionsJob < ApplicationJob
 
       begin
         question_set.each do |question|
-          self.create_question content_id, question
+          # TODO: Generate answer for question
+          answer = "TODO: Generate this dynamically"
+          self.create_question content_id, question, answer
         end
       rescue Exception => ex
         raise Exception.new "Failed to create a question from GenerateQuestionsJob.\n%{err}" % {err: ex.inspect}
       end
     end
 
-    def create_question content_id, question_text
+    def create_question content_id, question_text, answer_text
       question = Question.new
       question.content_id = content_id
       question.question = question_text
+      question.answer = answer_text
       question.save!
     end
 end
