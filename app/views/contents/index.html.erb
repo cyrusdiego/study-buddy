@@ -1,20 +1,46 @@
 <div class="flex items-center">
   <h1 class="heading-1 grow">My Content</h1>
 
-  <div class="p-x-4">
-    <%= link_to 'New Content', new_content_path, class: 'primary-button ' %>
+  <div class="p-4 flex flex-row space-x-4 items-center justify-stretch">
+    <!--    <img alt="Filter" src="/img/filter.svg" class="primary-button max-h-10"/>-->
 
-    <%= link_to 'Quiz me', new_quiz_path, class: 'primary-button' %>
+    <%= link_to 'New Content', new_content_path, class: 'primary-button' %>
+
+    <%= link_to 'Quiz me', new_quiz_path, class: 'primary-button'%>
   </div>
 
 </div>
 
 <div class="flex flex-col space-y-4 items-center">
   <% @contents.each do |content| %>
-    <%= link_to content, class: 'card w-full' do %>
-      <h2 class="heading-2"><%= content.title %></h2>
-    <% end %>
+    <div class="flex flex-row items-center card w-full group">
+      <%= link_to content, class: 'flex-1' do %>
+        <div class="flex flex-row items-center space-x-4">
+          <div class="flex-1 flex flex-col space-y-2">
+            <h2 class="heading-2"><%= content.title %></h2>
+            <p class="text-sm font-light">Number of Questions: <%= content.questions.count %></p>
+          </div>
+        </div>
+      <% end %>
+      <div class="flex flex-row space-x-4">
+        <div class="invisible-until-group-hover">
+          <%= link_to edit_content_path(content) do %>
+            <img alt="Edit" src="/img/edit.svg" class='button-icon' />
+          <% end %>
+        </div>
+
+        <%= button_to content,
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' },
+                      class: 'invisible-until-group-hover' do %>
+          <img alt="Delete" src="/img/delete.svg" class='button-icon'/>
+          <% end %>
+      </div>
+    </div>
+
   <% end %>
 
+  <% if @contents.empty? %>
+  <% end %>
 </div>
 
