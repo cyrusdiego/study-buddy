@@ -5,9 +5,6 @@ Rails.application.routes.draw do
   end
 resources :quizzes
 
-  # post '/contents/content_id:/questions', to: 'questions#create'
-  # delete '/questions/:id', to: 'questions#destroy'
-
   devise_for :users
   devise_scope :user do
     authenticated :user do
