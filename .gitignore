@@ -30,8 +30,8 @@
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/credentials/
 /config/master.key
+/config/credentials/
 
 /public/packs
 /public/packs-test

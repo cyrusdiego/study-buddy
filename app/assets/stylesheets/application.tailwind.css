@@ -26,7 +26,7 @@
     }
 
     .button {
-        @apply rounded-lg drop-shadow-md font-bold hover:cursor-pointer transition-colors mx-2 px-4 py-2
+        @apply rounded-lg drop-shadow-md font-bold hover:cursor-pointer transition-colors px-4 py-2 text-center
     }
 
     .primary-button {
@@ -38,7 +38,7 @@
     }
 
     .text-field {
-        @apply rounded-md grow
+        @apply rounded-md grow w-full
     }
 
     .label {
@@ -46,7 +46,7 @@
     }
 
     .alert-base {
-        @apply p-4 my-4 rounded-lg border-2 border-solid
+        @apply p-4 rounded-lg border-2 border-solid mb-4
     }
 
     .notice {
@@ -55,5 +55,9 @@
 
     .alert {
         @apply alert-base bg-red-300/20 border-red-400
+    }
+
+    .field {
+        @apply flex flex-col text-lg grow
     }
 }

@@ -1,19 +1,20 @@
 <div class="flex items-center">
-  <h1 class="heading-1 grow">Contents</h1>
-  <%= link_to 'New quiz', new_content_path, class: 'primary-button mt-8' %>
+  <h1 class="heading-1 grow">My Content</h1>
+
+  <div class="p-x-4">
+    <%= link_to 'New Content', new_content_path, class: 'primary-button ' %>
+
+    <%= link_to 'Quiz me', new_quiz_path, class: 'primary-button' %>
+  </div>
+
 </div>
 
 <div class="flex flex-col space-y-4 items-center">
-  <ul class="flex flex-col space-y-4 w-full">
-    <% @contents.each do |content| %>
-      <li class="card">
-        <%= link_to content do %>
-          <h2 class="heading-2"><%= content.title %></h2>
-        <% end %>
-      </li>
+  <% @contents.each do |content| %>
+    <%= link_to content, class: 'card w-full' do %>
+      <h2 class="heading-2"><%= content.title %></h2>
     <% end %>
-  </ul>
+  <% end %>
 
-  <%= link_to 'New Content', new_content_path, class: 'primary-button mt-8' %>
 </div>
 

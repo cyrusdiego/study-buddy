@@ -6,16 +6,10 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    # @question = Question.new(question_params)
     GenerateQuestionsJob.perform_later params[:content_id], :random_page
     respond_to do |format|
-      # if @question.save
       format.html { redirect_to @content, notice: 'A new question is being generated, please refresh the page in a few moments to see the question 🤩' }
       format.json { render :show, status: :created, location: @question }
-      # else
-      #   format.html { redirect_to @content, alert: 'Failed to create question.' }
-      #   format.json { render json: @question.errors, status: :unprocessable_entity }
-      # end
     end
   end
 
