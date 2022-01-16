@@ -11,3 +11,10 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+$(document).ready(function () {
+    $(".quiz-card").on("click", function () {
+        $(this).find('.hint').toggleClass('hidden')
+        $(this).find('.answer').toggleClass('hidden')
+    });
+});
