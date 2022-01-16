@@ -6,11 +6,10 @@
 
     <%= link_to 'New Content', new_content_path, class: 'primary-button' %>
 
-    <% if @contents.present? do %>
+    <% if @contents.present? %>
       <%= link_to 'Quiz me', new_quiz_path, class: 'primary-button' %>
-    <% end %> %>
+    <% end %>
   </div>
-
 </div>
 
 <div class="flex flex-col space-y-4 items-center">
