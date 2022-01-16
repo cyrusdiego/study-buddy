@@ -1,7 +1,27 @@
-<p>
-  <strong>Title:</strong>
-  <%= @content.title %>
-</p>
-
-<%= link_to 'Edit', edit_content_path(@content) %> |
-<%= link_to 'Back', contents_path %>
+<div class="space-y-4 h-screen">
+  <div class="h-1/2 p-4">
+    <div>
+      <%= link_to 'Back', contents_path, class: "text-md font-thin" %>
+    </div>
+    <h1 class="heading-1"><%= @content.title %></h1>
+    <div class="flex justify-center items-center h-full">
+      <div class="w-1/2 h-full">
+        <iframe src="<%= url_for(@content.file) %>" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+    <h1 class="heading-1">Questions</h1>
+    <div class="flex justify-center items-center flex-col">
+      <div>
+        <% @content.questions.each do |question| %>
+          <div class="card">
+            <h2 class="heading-2"><%= question.question %></h2>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= button_to "Add Question", new_question_path, class: "primary-button" %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

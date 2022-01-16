@@ -11,6 +11,7 @@ gem 'bootsnap',   '1.7.2', require: false
 gem 'devise'
 gem 'ruby-openai'
 gem 'active_storage_validations'
+gem 'pdf-reader'
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
