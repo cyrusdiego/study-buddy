@@ -19,6 +19,7 @@
           <div class="flex-1 flex flex-col space-y-2">
             <h2 class="heading-2"><%= content.title %></h2>
             <p class="text-sm font-light">Number of Questions: <%= content.questions.count %></p>
+            <p><%= content.tags.to_a.map {|t| t.name}.join ' ' %></p>
           </div>
         </div>
       <% end %>

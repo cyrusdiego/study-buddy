@@ -12,4 +12,17 @@ class Content < ApplicationRecord
   def summary
     return "#{self.title} (#{self.questions.count} questions)"
   end
+
+  # this is the tag's list setter which will capture
+  # params[:customer][:add_phone_numbers] when you submit the form
+  def add_tags=(tag_string)
+    tag_string.split(" ").each do |tag|
+      self.tags << Tag.new(name: tag) unless tags.map { |t| t.name }.include? tag
+    end
+  end
+
+  # this will display tags in the text_field
+  def add_tags
+    tags.map { |t| t.name }.join(" ")
+  end
 end
