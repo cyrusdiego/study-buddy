@@ -14,12 +14,12 @@ class GenerateQuestionsJob < ApplicationJob
       case method
       when :per_page
         r.pages.first(20).each do |page|
-          self.create_questions content_id, page.text, r.page_count
+          self.create_questions content_id, page.text
         end
 
       when :random_page
         page = r.pages[rand(0..(r.page_count - 1))]
-        self.create_questions content_id, page.text, 1
+        self.create_questions content_id, page.text
       else
         raise Exception.new "Invalid value (%{value}) for CreateQuestionsJob::perform method parameter." %
                               { value: method }
@@ -29,20 +29,21 @@ class GenerateQuestionsJob < ApplicationJob
 
   private
 
-  def create_questions content_id, page_text, num_pages
+  def create_questions content_id, page_text
     begin
-      num_questions = num_pages > 10 ? 1 : 2
-      question_set = OpenAiApi.fetch_question_set page_text, num_questions
+      question_set = OpenAiApi.fetch_question_set page_text
     rescue Exception => ex
       logger.debug "Error encountered while fetching question set.\n%{error_info}" %
                             { error_info: ex.inspect }
     end
 
     begin
-      question_set.each do |question|
-        answer = OpenAiApi.fetch_answer page_text, question
-        self.create_question content_id, question, answer
-      end
+      # question_set.first(1).each do |question|
+      #   answer = OpenAiApi.fetch_answer page_text, question
+      #   self.create_question content_id, question, answer
+      # end
+      answer = OpenAiApi.fetch_answer page_text, question_set.first
+      self.create_question content_id, question_set.first, answer
     rescue Exception => ex
       logger.debug "Failed to create a question.\n%{err}" % { err: ex.inspect }
     end

@@ -22,7 +22,6 @@ module OpenAiApiParameters
 Content:
 Technology is the system/tool we used to solve problems. Education is one of the greatest technologies ever created (students are the product of this technological system). Government is another form of technology. Both the above are considered invisible technologies (systems that do not necessarily produce physical objects).
 Questions:
-What is technology?
 What could be considered one of the greatest technologies ever created?
 What is the class of technologies that does not produce physical objects?
 
@@ -114,15 +113,14 @@ module OpenAiApi
     end
   end
 
-  def fetch_question_set content, num_questions
+  def fetch_question_set content
     prompt = self.generate_prompt content
     completion_tokens = self.calculate_completion_tokens prompt
     self.parse_response :question_set, OpenAiClient.instance.client.completions(
       engine: "davinci-instruct-beta-v3", 
       parameters: {
         prompt: prompt,
-        max_tokens: completion_tokens,
-        n: num_questions
+        max_tokens: completion_tokens
       })
   end
   module_function :fetch_question_set
