@@ -20,6 +20,10 @@
         @apply rounded-lg drop-shadow-md font-bold hover:cursor-pointer transition-colors px-4 py-2 text-center
     }
 
+    .pill {
+        @apply rounded-lg bg-primary-400 drop-shadow-md font-light transition-colors px-2 py-1 text-center text-white
+    }
+
     .primary-button {
         @apply button bg-primary-500 hover:bg-primary-400 text-white
     }
