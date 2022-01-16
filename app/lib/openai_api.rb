@@ -186,7 +186,12 @@ module OpenAiApi
           questions["text"].strip.split("\n").map{ |question| question.slice(question.index(/[a-zA-Z]/)..-1).strip } 
         }.first
       when :answer
-        response.parsed_response["answers"].first.strip
+        answer_char_limit = 300
+        answer = response.parsed_response["answers"].first.strip
+        if answer.length > answer_char_limit
+          raise Exception.new "Invalid answer created - answer character limit exceeded."
+        end
+        answer
       else
         raise Exception.new "Invalid response_type passed into OpenAiApi."
       end
