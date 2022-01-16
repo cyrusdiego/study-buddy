@@ -53,8 +53,8 @@
     }
 
     .checkbox-base {
-        @apply appearance-none h-4 w-4 border border-neutral-300 rounded-sm bg-white focus: ring-primary-700
-        focus: outline-none transition duration-200 bg-no-repeat bg-center bg-contain float-left cursor-pointer
+        @apply appearance-none h-4 w-4 border-neutral-300 rounded-sm bg-white focus:ring-primary-700
+        focus:outline-none transition duration-200 bg-no-repeat bg-center bg-contain float-left cursor-pointer
     }
 
     .checkbox-checked {
