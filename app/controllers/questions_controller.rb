@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:destroy]
-  before_action :set_content, only: [:create]
+  before_action :set_content, only: [:create, :destroy]
 
   # TODO: Refactor this
   # POST /questions
@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to contents_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to @content, notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
