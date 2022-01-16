@@ -62,42 +62,35 @@ Questions:
 
 "
 
-  # Sourced from https://en.wikipedia.org/wiki/Fall_of_the_Western_Roman_Empire#:~:text=The%20fall%20of%20the%20Western,divided%20into%20several%20successor%20polities.
+  # Sourced from https://en.wikipedia.org/wiki/Canada
   @@answer_examples = [
     [
-      "What caused the fall of the Western Roman Empire?", 
-      "The fall of the Western Roman Empire was due to a loss of effective control over its Western provinces."
+      "What is the world's second-largest country by total area?", 
+      "The world's second-largest country by total area is Canada."
     ],
     [
-      "What were some of the immediate factors that contributed to the collapse?", 
-      "Some of the immediate factors that contributed to the collapse include a smaller and less effective army, "\
-      "the health and size of the Roman population, the strength of the economy, the competence of the emporers, "\
-      "the internal struggles for power, and changes in religious beliefs. External pressures from invading "\
-      "barbarians, climatic changes, and epidemic disease exaggerated many of these immediate factors."
+      "What is the capital of Canada?", 
+      "Canada's capital is Ottawa."
     ],
     [
-      "What are some of the major subjects of the historiography of the ancient world?", 
-      "The reasons for the collapse of the Western Roman Empire."
+      "What are Canada's three largest metropolitan areas?", 
+      "Canada's three largest metropolitan areas are Toronto, Montreal, and Vancouver."
     ]
   ]
 
-  @@answer_examples_context = "The fall of the Western Roman Empire was the loss of central political control in "\
-    "the Western Roman Empire, a process in which the Empire failed to enforce its rule, and its vast territory was "\
-    "divided into several successor polities. The Roman Empire lost the strengths that had allowed it to exercise "\
-    "effective control over its Western provinces; modern historians posit factors including the effectiveness and "\
-    "numbers of the army, the health and numbers of the Roman population, the strength of the economy, the "\
-    "competence of the emperors, the internal struggles for power, the religious changes of the period, and the "\
-    "efficiency of the civil administration. Increasing pressure from invading barbarians outside Roman culture also "\
-    "contributed greatly to the collapse. Climatic changes and epidemic disease drove many of these immediate "\
-    "factors. The reasons for the collapse are major subjects of the historiography of the ancient world and they "\
-    "inform much modern discourse on state failure."
+  # Sourced from https://en.wikipedia.org/wiki/Canada
+  @@answer_examples_context = "Canada is a country in North America. Its ten provinces and three territories extend "\
+    "from the Atlantic to the Pacific and northward into the Arctic Ocean, covering 9.98 million square kilometres, "\
+    "making it the world's second-largest country by total area. Its southern and western border with the United "\
+    "States, stretching 8,891 kilometres, is the world's longest bi-national land border. Canada's capital is "\
+    "Ottawa, and its three largest metropolitan areas are: Toronto, Montreal, and Vancouver."
 
   # Maximum is 2048 but due to approximated token length of 4 rounding down to be safe
   @@max_tokens = 1900
 
   @@min_completion_tokens = 300
 
-  @@answer_stop = ["\n", "<|endoftext|>"]
+  @@answer_stop = ["===", "---", "<|endoftext|>"]
 end
 
 module OpenAiApi
@@ -126,6 +119,7 @@ module OpenAiApi
   module_function :fetch_question_set
 
   def fetch_answer content, question
+    content.gsub! ":", ","
     answer_tokens = self.calculate_answer_tokens content, question
     self.parse_response :answer, OpenAiClient.instance.client.answers(parameters: {
       model: "curie",
@@ -186,7 +180,7 @@ module OpenAiApi
           questions["text"].strip.split("\n").map{ |question| question.slice(question.index(/[a-zA-Z]/)..-1).strip } 
         }.first
       when :answer
-        answer_char_limit = 300
+        answer_char_limit = 500
         answer = response.parsed_response["answers"].first.strip
         if answer.length > answer_char_limit
           raise Exception.new "Invalid answer created - answer character limit exceeded."
