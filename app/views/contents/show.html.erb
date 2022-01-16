@@ -34,7 +34,7 @@
               <li><b>Q: </b><%= question.question %></li>
               <li><b>A: </b><%= question.answer %></li>
             </ul>
-            <div class="self-center">
+            <div class="self-center min-w-[2rem]">
               <%= button_to content_question_path(@content, question),
                             method: :delete,
                             data: { confirm: 'Are you sure?' },
