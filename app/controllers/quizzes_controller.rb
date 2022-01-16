@@ -17,7 +17,6 @@ class QuizzesController < ApplicationController
   def create
     @quiz = Quiz.new(quiz_params)
     @quiz.user = current_user
-    byebug
 
     respond_to do |format|
       if @quiz.save
