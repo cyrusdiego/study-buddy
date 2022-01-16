@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_16_084653) do
+ActiveRecord::Schema.define(version: 2022_01_16_125105) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -75,11 +75,25 @@ ActiveRecord::Schema.define(version: 2022_01_16_084653) do
     t.index ["quiz_id"], name: "index_quiz_contents_on_quiz_id"
   end
 
+  create_table "quiz_tags", force: :cascade do |t|
+    t.integer "quiz_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id"], name: "index_quiz_tags_on_quiz_id"
+    t.index ["tag_id"], name: "index_quiz_tags_on_tag_id"
+  end
+
   create_table "quizzes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_quizzes_on_user_id"
+  end
+
+  create_table "tag_contents", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -113,5 +127,7 @@ ActiveRecord::Schema.define(version: 2022_01_16_084653) do
   add_foreign_key "questions", "contents"
   add_foreign_key "quiz_contents", "contents"
   add_foreign_key "quiz_contents", "quizzes"
+  add_foreign_key "quiz_tags", "quizzes"
+  add_foreign_key "quiz_tags", "tags"
   add_foreign_key "quizzes", "users"
 end
