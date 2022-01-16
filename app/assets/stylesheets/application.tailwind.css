@@ -14,18 +14,34 @@
 
 @layer components {
     .card {
-        @apply bg-neutral-50 rounded-lg p-6 drop-shadow-xl my-4
+        @apply bg-neutral-50 rounded-lg p-8 drop-shadow-xl my-4
     }
 
     .heading-1 {
-        @apply text-3xl mb-4
+        @apply text-3xl mb-8
     }
 
     .heading-2 {
         @apply text-2xl font-medium mb-2
     }
 
+    .button {
+        @apply rounded-lg drop-shadow-md  hover:cursor-pointer transition-colors mx-2 px-4 py-2
+    }
+
     .primary-button {
-        @apply bg-primary-500 rounded-lg text-white p-2 drop-shadow-md hover:bg-primary-400 transition-colors
+        @apply button bg-primary-500 hover:bg-primary-400 text-white
+    }
+
+    .secondary-button {
+        @apply button bg-secondary-500 hover:bg-secondary-400 text-white
+    }
+
+    .text-field {
+        @apply rounded-md grow
+    }
+
+    .label {
+        @apply block text-gray-700 font-bold mb-2
     }
 }
