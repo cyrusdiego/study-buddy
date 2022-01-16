@@ -13,12 +13,12 @@
 
   <div class="mb-4">
     <%= form.label :title, class: 'label' %>
-    <%= form.text_field :title, class: 'text-field' %>
+    <%= form.text_field :title, class: 'text-field', placeholder: 'Enter a title for your content' %>
   </div>
 
   <div class="mb-4">
     <%= form.label 'Tags', class: 'label' %>
-    <%= form.text_field :add_tags, class: 'text-field' %>
+    <%= form.text_field :add_tags, class: 'text-field', placeholder: 'Enter a space separated list' %>
   </div>
 
   <% unless content.file.present? %>

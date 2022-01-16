@@ -37,7 +37,8 @@
     }
 
     .text-field {
-        @apply rounded-md grow w-full
+        @apply rounded-md grow w-full focus:ring-2 ring-primary-500 ring-inset
+        placeholder:italic placeholder:text-slate-400
     }
 
     .label {
