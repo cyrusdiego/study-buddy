@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_15_213035) do
+ActiveRecord::Schema.define(version: 2022_01_16_020819) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,20 @@ ActiveRecord::Schema.define(version: 2022_01_15_213035) do
     t.index ["content_id"], name: "index_questions_on_content_id"
   end
 
+  create_table "quiz_contents", force: :cascade do |t|
+    t.integer "content_id", null: false
+    t.integer "quiz_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["content_id"], name: "index_quiz_contents_on_content_id"
+    t.index ["quiz_id"], name: "index_quiz_contents_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -77,4 +91,6 @@ ActiveRecord::Schema.define(version: 2022_01_15_213035) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contents", "users"
   add_foreign_key "questions", "contents"
+  add_foreign_key "quiz_contents", "contents"
+  add_foreign_key "quiz_contents", "quizzes"
 end

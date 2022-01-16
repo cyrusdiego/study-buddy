@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :contents do
     resources :questions
   end
+resources :quizzes
 
   # post '/contents/content_id:/questions', to: 'questions#create'
   # delete '/questions/:id', to: 'questions#destroy'
