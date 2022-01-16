@@ -5,6 +5,9 @@ class ContentsController < ApplicationController
   # GET /contents.json
   def index
     @contents = Content.all
+    if @contents.empty?
+      flash.notice = 'Get started by adding some new content.'
+    end
   end
 
   # GET /contents/1
