@@ -4,6 +4,9 @@ class QuizzesController < ApplicationController
   # GET /quizzes/1
   # GET /quizzes/1.json
   def show
+    questions_from_contents = @quiz.contents.map(&:questions).flatten
+    questions_from_tags = @quiz.tags.map(&:contents).flatten.map(&:questions).flatten
+    @questions = questions_from_contents.concat(questions_from_tags).uniq
   end
 
   # GET /quizzes/new
