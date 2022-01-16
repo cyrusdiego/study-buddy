@@ -96,7 +96,7 @@ Questions:
   # Maximum is 2048 but due to approximated token length of 4 rounding down to be safe
   @@max_tokens = 1900
   
-  @@num_questions = 5
+  @@num_questions = 1
 
   @@min_completion_tokens = 300
 
