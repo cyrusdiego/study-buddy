@@ -2,28 +2,32 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:destroy]
   before_action :set_content, only: [:create]
 
+  # TODO: Refactor this
   # POST /questions
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-    byebug
 
-    # TODO: Below
-    # respond_to do |format|
-    #   if @question.save
-    #     format.html { redirect_to @content, notice: 'Content was successfully created.' }
-    #     format.json { render :show, status: :created, location: @content }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @content.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @content, notice: 'Question was successfully created.' }
+        format.json { render :show, status: :created, location: @question }
+      else
+        format.html { redirect_to @content, alert: 'Failed to create question.' }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # TODO: Refactor this
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    #TODO
+    @question.destroy
+    respond_to do |format|
+      format.html { redirect_to contents_url, notice: 'Question was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
