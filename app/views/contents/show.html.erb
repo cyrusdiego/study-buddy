@@ -4,12 +4,12 @@
 
     <div class="flex flex-row items-center">
       <h1 class="heading-1 grow"><%= @content.title %></h1>
-      <%= button_to quizzes_path,
+      <%= button_to 'Quiz me',
+                    quizzes_path,
                     method: :post,
                     data: { confirm: 'Ready to answer some questions?' },
-                    params: { quiz: { content_ids: [@content.id] } } do %>
-        <img alt="quiz me" src="/img/quiz.svg" class="button-icon"/>
-      <% end %>
+                    params: { quiz: { content_ids: [@content.id] } },
+                    class: 'primary-button' %>
     </div>
 
     <div class="flex justify-center items-center w-full h-[65vh]">
