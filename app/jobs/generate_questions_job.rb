@@ -53,9 +53,5 @@ class GenerateQuestionsJob < ApplicationJob
     question.question = question_text
     question.answer = answer_text
     question.save!
-    ActionCable.server.broadcast "questions_#{content_id}",
-                                 question: question.question,
-                                 answer: question.answer
-    head :ok
   end
 end
