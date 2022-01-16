@@ -12,9 +12,6 @@ TODOs
     - open ai related
         - refine question gen prompt
         - tweak params
-    - code related
-        - test question gen util functions
-        - figure out openai response object and build in error handling
 
 - answer gen
     - open ai related
