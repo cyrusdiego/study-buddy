@@ -3,7 +3,16 @@
     <%= link_to '← Back', contents_path, class: "text-md text-neutral-500" %>
 
     <div class="flex flex-row items-center">
-      <h1 class="heading-1 grow"><%= @content.title %></h1>
+      <div class="flex flex-col grow py-2 mb-4">
+        <h1 class="heading-1 mb-2"><%= @content.title %></h1>
+        <div class="flex flex-row space-x-2">
+          <% @content.tags.each do |tag|  %>
+            <div class="pill">
+              <%= tag.name %>
+            </div>
+          <% end %>
+        </div>
+      </div>
       <%= button_to 'Quiz me',
                     quizzes_path,
                     method: :post,
