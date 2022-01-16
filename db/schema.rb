@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2022_01_16_074917) do
     t.integer "content_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "answer"
+    t.text "answer", default: "Unknown"
     t.index ["content_id"], name: "index_questions_on_content_id"
   end
 
