@@ -23,9 +23,12 @@
         </div>
       <% end %>
       <div class="flex flex-row space-x-4">
-        <%= link_to edit_content_path(content), class: 'invisible-until-group-hover' do %>
-          <img alt="Edit" src="/img/edit.svg" class='button-icon' />
-        <% end %>
+        <div class="invisible-until-group-hover">
+          <%= link_to edit_content_path(content) do %>
+            <img alt="Edit" src="/img/edit.svg" class='button-icon' />
+          <% end %>
+        </div>
+
         <%= button_to content,
                       method: :delete,
                       data: { confirm: 'Are you sure?' },
