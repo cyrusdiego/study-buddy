@@ -87,7 +87,7 @@ Questions:
     "Ottawa, and its three largest metropolitan areas are: Toronto, Montreal, and Vancouver."
 
   # Maximum is 2048 but due to approximated token length of 4 rounding down to be safe
-  @@max_tokens = 1900
+  @@max_tokens = 1750
 
   @@min_completion_tokens = 300
 
