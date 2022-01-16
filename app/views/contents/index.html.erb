@@ -6,7 +6,9 @@
 
     <%= link_to 'New Content', new_content_path, class: 'primary-button' %>
 
-    <%= link_to 'Quiz me', new_quiz_path, class: 'primary-button' %>
+    <% if @contents.present? do %>
+      <%= link_to 'Quiz me', new_quiz_path, class: 'primary-button' %>
+    <% end %> %>
   </div>
 
 </div>
