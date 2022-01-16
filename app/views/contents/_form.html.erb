@@ -16,7 +16,12 @@
     <%= form.text_field :title, class: 'text-field' %>
   </div>
 
-  <% if not content.file.present? %>
+  <div class="mb-4">
+    <%= form.label 'Tags', class: 'label' %>
+    <%= form.text_field :add_tags, class: 'text-field' %>
+  </div>
+
+  <% unless content.file.present? %>
     <div class="mb-4">
       <%= form.label :file, class: 'label' %>
       <%= form.file_field :file %>
