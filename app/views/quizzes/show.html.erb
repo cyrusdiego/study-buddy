@@ -1,12 +1,9 @@
 <%= link_to '← Back', contents_path, class: "text-md text-neutral-500" %>
 <h1 class="heading-1">Your Quiz</h1>
-<% i = 0 %>
 <ul class="flex flex-col space-y-4 w-full list-decimal list-inside">
-  <% @quiz.contents.concat(@quiz.tags.map(&:contents).flatten).shuffle.each do |content| %>
-    <% content.questions.shuffle.each do |question| %>
-      <% i += 1 %>
-      <li class="card flex flex-row quiz-card" id="<%= i %>">
-        <span class="mr-2"><%= i %>.</span>
+  <% @questions.each_with_index do |question, i| %>
+      <li class="card flex flex-row quiz-card" id="<%= i + 1 %>">
+        <span class="mr-2"><%= i + 1 %>.</span>
         <ul class="inline-block">
           <li><b>Q: </b><%= question.question %></li>
           <li>
@@ -15,6 +12,5 @@
             <span class="answer hidden"><%= question.answer %></span></li>
         </ul>
       </li>
-    <% end %>
   <% end %>
 </ul>
