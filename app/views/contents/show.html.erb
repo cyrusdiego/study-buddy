@@ -2,7 +2,16 @@
   <div class="h-full p-4">
     <%= link_to '← Back', contents_path, class: "text-md text-neutral-500" %>
 
-    <h1 class="heading-1"><%= @content.title %></h1>
+    <div class="flex flex-row items-center">
+      <h1 class="heading-1 grow"><%= @content.title %></h1>
+      <%= button_to quizzes_path,
+                    method: :post,
+                    data: { confirm: 'Ready to answer some questions?' },
+                    params: { quiz: { content_ids: [@content.id] } } do %>
+        <img alt="quiz me" src="/img/quiz.svg" class="button-icon"/>
+      <% end %>
+    </div>
+
     <div class="flex justify-center items-center w-full h-[65vh]">
       <iframe src="<%= url_for(@content.file) %>" width="100%" height="100%"></iframe>
     </div>
