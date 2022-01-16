@@ -36,7 +36,7 @@ class ContentsController < ApplicationController
       if @content.save
         puts "RUN #{@content.id}"
         GenerateQuestionsJob.perform_later @content.id, :per_page
-        format.html { redirect_to @content, notice: 'Content was successfully created.' }
+        format.html { redirect_to @content, notice: 'Your questions are being generated, please refresh the page in a few moments to see the question 🤩' }
         format.json { render :show, status: :created, location: @content }
       else
         format.html { render :new }
