@@ -45,3 +45,4 @@ yarn-debug.log*
 **/.DS_Store
 
 Gemfile.lock
+/config/credentials/development.key
