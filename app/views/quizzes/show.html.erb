@@ -1,1 +1,9 @@
-<%= @quiz.id %>
+<ol>
+  <% @quiz.contents.each do |content| %>
+    <% content.questions.each_with_index do |question, i| %>
+      <li><%= question.question %></li>
+    <% end %>
+  <% end %>
+</ol>
+
+<!--TODO: REfactor-->

@@ -12,13 +12,8 @@
   <% end %>
 
   <div class="mb-4">
-    <%= form.label :title, class: 'label' %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="mb-4">
     <%= form.label 'Quiz Content', class: 'label' %>
-    <%= form.text_field :title %>
+    <%= form.collection_check_boxes(:content_ids, current_user.contents.all, :id, :title) %>
   </div>
 
   <div class="flex flex-row justify-end items-center">
