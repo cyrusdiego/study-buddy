@@ -2,7 +2,6 @@
   <h1 class="heading-1 grow">My Content</h1>
 
   <div class="flex flex-row space-x-4 items-center justify-stretch">
-    <!--    <img alt="Filter" src="/img/filter.svg" class="primary-button max-h-10"/>-->
 
     <%= link_to 'New Content', new_content_path, class: 'primary-button' %>
 
@@ -27,7 +26,7 @@
         <div class="flex flex-row space-x-4">
           <div class="invisible-until-group-hover min-w-[2rem]">
             <%= link_to edit_content_path(content) do %>
-              <img alt="Edit" src="/img/edit.svg" class='button-icon'/>
+              <%= image_tag("edit.svg", class: 'button-icon') %>
             <% end %>
           </div>
 
@@ -35,7 +34,7 @@
                         method: :delete,
                         data: { confirm: 'Are you sure?' },
                         class: 'invisible-until-group-hover' do %>
-            <img alt="Delete" src="/img/delete.svg" class='button-icon'/>
+            <%= image_tag("delete.svg", class: 'button-icon') %>
           <% end %>
         </div>
         <div>
@@ -53,6 +52,10 @@
   <% end %>
 
   <% if @contents.empty? %>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+      <%= image_tag("no_data.svg", width: 400, class: 'pt-32') %>
+      <p class="pt-6 label">There's no content yet, upload a PDF to get started!</p>
+    </div>
   <% end %>
 </div>
 

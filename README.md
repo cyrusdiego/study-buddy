@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" height="128" src="public/img/logo.svg">
+  <img width="128" height="128" src="app/assets/images/logo.svg">
 </p>
 <h1 align="center">StudyBuddy</h1>
 
