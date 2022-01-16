@@ -1,29 +1,19 @@
 <div class="space-y-4">
-  <div>
-    <h1 class="heading-1"><%= @content.title %></h1>
-    <p>CONTENT HERE</p>
-  </div>
+  <h1 class="heading-1"><%= @content.title %></h1>
+  <p>CONTENT HERE</p>
 
-  <div>
-    <h1 class="heading-1">Questions</h1>
-    <div class="flex justify-center items-center flex-col">
-      <div>
-        <% @content.questions.each do |question| %>
-            <div class="card">
-              <h2 class="heading-2"><%= question.question %></h2>
-            </div>
-        <% end %>
-      </div>
-      <div>
-        <%= button_to "Add Question", class: "primary-button" %>
-      </div>
-    </div>
+  <h1 class="heading-1">Questions</h1>
+  <div class="flex flex-col items-center">
+    <ol class="mb-4 w-full list-decimal list-inside flex flex-col space-y-4">
+      <% @content.questions.each do |question| %>
+        <li class="card mt-0">
+          <%= question.question %>
+        </li>
+      <% end %>
+    </ol>
+    <%= link_to "Add Question", @content, class: 'primary-button' %>
   </div>
 </div>
-
-
-
-
 
 <!--<%#= link_to 'Edit', edit_content_path(@content) %> |-->
 <%#= link_to 'Back', contents_path %>

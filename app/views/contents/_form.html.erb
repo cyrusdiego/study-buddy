@@ -1,32 +1,30 @@
-<div class='bg-white shadow-lg rounded-lg p-8 w-full'>
-  <%= form_with(model: content) do |form| %>
-    <% if content.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(content.errors.count, "error") %> prohibited this content from being saved:</h2>
+<%= form_with(model: content) do |form| %>
+  <% if content.errors.any? %>
+    <div class="alert">
+      <h2 class="font-bold"><%= pluralize(content.errors.count, "error") %> prohibited this content from being saved:</h2>
 
-        <ul>
-          <% content.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="mb-4">
-      <%= form.label :title, class: 'block text-gray-700 font-bold mb-2' %>
-      <%= form.text_field :title %>
-    </div>
-
-    <% if not content.file.present? %>
-      <div class="mb-4">
-        <%= form.label :file, class: 'block text-gray-700 font-bold mb-2' %>
-        <%= form.file_field :file %>
-      </div>
-    <% end %>
-
-    <div class="flex flex-row justify-end items-center">
-      <%= link_to 'Back', contents_path, class: 'mr-4' %>
-      <%= form.submit class: 'bg-blue-500 font-bold text-white py-2 px-4 rounded-lg' %>
+      <ul class="list-disc list-inside">
+        <% content.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-</div>
+
+  <div class="mb-4">
+    <%= form.label :title, class: 'label' %>
+    <%= form.text_field :title, class: 'text-field' %>
+  </div>
+
+  <% if not content.file.present? %>
+    <div class="mb-4">
+      <%= form.label :file, class: 'label' %>
+      <%= form.file_field :file %>
+    </div>
+  <% end %>
+
+  <div class="flex flex-row justify-end items-center">
+    <%= link_to 'Back', contents_path, class: 'secondary-button' %>
+    <%= form.submit class: 'primary-button' %>
+  </div>
+<% end %>
