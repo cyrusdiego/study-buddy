@@ -14,11 +14,11 @@
 
 @layer components {
     .card {
-        @apply bg-neutral-50 rounded-lg p-8 drop-shadow-xl my-4
+        @apply bg-neutral-50 rounded-lg p-4 drop-shadow-xl
     }
 
     .heading-1 {
-        @apply text-3xl mb-8
+        @apply text-3xl mb-8 mt-10
     }
 
     .heading-2 {
@@ -26,7 +26,7 @@
     }
 
     .button {
-        @apply rounded-lg drop-shadow-md  hover:cursor-pointer transition-colors mx-2 px-4 py-2
+        @apply rounded-lg drop-shadow-md font-bold hover:cursor-pointer transition-colors mx-2 px-4 py-2
     }
 
     .primary-button {

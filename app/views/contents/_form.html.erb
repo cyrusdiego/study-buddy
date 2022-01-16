@@ -1,9 +1,9 @@
 <%= form_with(model: content) do |form| %>
   <% if content.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(content.errors.count, "error") %> prohibited this content from being saved:</h2>
+    <div class="alert">
+      <h2 class="font-bold"><%= pluralize(content.errors.count, "error") %> prohibited this content from being saved:</h2>
 
-      <ul>
+      <ul class="list-disc list-inside">
         <% content.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
