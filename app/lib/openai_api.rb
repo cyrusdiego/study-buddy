@@ -94,7 +94,7 @@ Questions:
     "inform much modern discourse on state failure."
 
   # Maximum is 2048 but due to approximated token length of 4 rounding down to 2000
-  @@max_tokens = 2000
+  @@max_tokens = 1900
 
   @@min_completion_tokens = 300
 
