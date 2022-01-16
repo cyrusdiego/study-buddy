@@ -95,8 +95,6 @@ Questions:
 
   # Maximum is 2048 but due to approximated token length of 4 rounding down to be safe
   @@max_tokens = 1900
-  
-  @@num_questions = 1
 
   @@min_completion_tokens = 300
 
@@ -116,7 +114,7 @@ module OpenAiApi
     end
   end
 
-  def fetch_question_set content
+  def fetch_question_set content, num_questions
     prompt = self.generate_prompt content
     completion_tokens = self.calculate_completion_tokens prompt
     self.parse_response :question_set, OpenAiClient.instance.client.completions(
@@ -124,7 +122,7 @@ module OpenAiApi
       parameters: {
         prompt: prompt,
         max_tokens: completion_tokens,
-        n: @@num_questions
+        n: num_questions
       })
   end
   module_function :fetch_question_set

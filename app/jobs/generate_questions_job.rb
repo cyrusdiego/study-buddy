@@ -14,7 +14,7 @@ class GenerateQuestionsJob < ApplicationJob
       case method
       when :per_page
         r.pages.each do |page|
-          self.create_questions content_id, page.text
+          self.create_questions content_id, page.text, r.page_count
         end
 
       when :random_page
@@ -29,9 +29,10 @@ class GenerateQuestionsJob < ApplicationJob
 
   private
 
-  def create_questions content_id, page_text
+  def create_questions content_id, page_text, num_pages
     begin
-      question_set = OpenAiApi.fetch_question_set page_text
+      num_questions = num_pages > 10 ? 1 : 2
+      question_set = OpenAiApi.fetch_question_set page_text, num_questions
     rescue Exception => ex
       logger.debug "Error encountered while fetching question set.\n%{error_info}" %
                             { error_info: ex.inspect }
