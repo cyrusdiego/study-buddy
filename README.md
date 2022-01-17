@@ -6,6 +6,8 @@
 StudyBuddy is here to help you ace your exams. Give it a pdf copy of your lectures and it'll write up questions for you 
 to practice on.
 
+The devpost for the project can be seen [here](https://devpost.com/software/studybuddy-ogze4u).
+
 ## Requirements
 
 - ruby
